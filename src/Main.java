@@ -8,7 +8,7 @@ public class Main extends JFrame { /* extends JFrame class pour utiliser les met
 
         // création de la fenetre principale
         setTitle("Financement Auto");
-        setSize(650, 400);
+        setSize(850, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // centre la fenêtre au centre de l'écran
 
