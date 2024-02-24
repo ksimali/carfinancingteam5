@@ -1,33 +1,60 @@
+import view.LoginView;
+import view.RegisterView;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Main extends JFrame { /* extends JFrame class pour utiliser les methode de la classe */
+public class Main extends JFrame {
+    private CardLayout cardLayout = new CardLayout();
+    private JPanel cardPanel = new JPanel(cardLayout);
+    private JPanel mainPanel = new JPanel(new FlowLayout());
+    private LoginView loginView = new LoginView();
+    private RegisterView registerView = new RegisterView();
 
-    // Créer un panel pour ajouter des boutons
-    static JPanel panel = new JPanel();
-    public Main(){
-
-        // création de la fenetre principale
-        setTitle("Financement Auto");
-        setSize(850, 600);
+    public Main() {
+        //Setting up JFrame
+        setTitle("Financement Automobile charExpress");
+        setSize(600, 400);
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // centre la fenêtre au centre de l'écran
 
-        // Creation des boutons 'Se connecter' et 'S'enregistrer'
-        JButton loginButton = new JButton("Se connecter");
-        JButton registerButton = new JButton("S'enregistrer");
+        // Creation des boutons 'Connexion' et 'Inscription'
+        JButton loginButton = new JButton("Connexion");
+        JButton registerButton = new JButton("Inscription");
 
-        // Ajout des boutons au panel via la methode add()
-        panel.add(loginButton);
-        panel.add(registerButton);
+        mainPanel.add(loginButton);
+        mainPanel.add(registerButton);
 
+        cardPanel.add(mainPanel, "Main");
+        //cardPanel.add(loginView, "Login");
+        //cardPanel.add(registerView, "Register");
+
+        add(cardPanel);
+
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardPanel, "Login");
+            }
+        });
+
+        registerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardPanel, "Register");
+            }
+        });
     }
+
+    //  Main method
     public static void main(String[] args) {
-
-        Main frame = new Main();
-        //Ajout du panel au Frame
-        frame.add(panel);
-        // rendre visible le Frame
-        frame.setVisible(true);
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Main frame = new Main();
+                frame.setVisible(true);
+            }
+        });
     }
 }
