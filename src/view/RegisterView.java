@@ -3,12 +3,14 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class RegisterView extends JDialog {
     private final JComboBox<String> cbChoisirRole;
     private final JPanel registerPanel;
     private final GridBagConstraints gbc;
+    private ArrayList<Component> dynamicComponents = new ArrayList<Component>(); // Liste pour garder une trace des composants dynamiques
+
 
     public RegisterView(){
         setTitle("S'inscrire");
@@ -18,6 +20,7 @@ public class RegisterView extends JDialog {
         GridBagLayout gbl = new GridBagLayout();
         registerPanel = new JPanel(gbl);
         setLayout(gbl);
+        add(registerPanel);
 
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5); // Marge externe pour chaque composant
@@ -25,7 +28,7 @@ public class RegisterView extends JDialog {
         // Label comboBox
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(new JLabel("Choisir l'utilisateur"), gbc);
+        registerPanel.add(new JLabel("Choisir l'utilisateur"), gbc);
 
         gbc.gridx = 1;
         gbc.gridwidth = 3;
@@ -33,12 +36,17 @@ public class RegisterView extends JDialog {
         // Initialisation et ajout de la liste deroulante
         String[] typeUtilisateur = {"Client", "Investisseur"};
         cbChoisirRole = new JComboBox<>(typeUtilisateur);
-        add(cbChoisirRole, gbc);
+        registerPanel.add(cbChoisirRole, gbc);
         cbChoisirRole.addActionListener(this::changerUtilisateur);
         cbChoisirRole.setSelectedItem("Client");
     }
 
     private void changerUtilisateur(ActionEvent e) {
+
+        for (Component comp : dynamicComponents) {
+            registerPanel.remove(comp);
+        }
+        dynamicComponents.clear();
 
         // Commun à tous les utilisateurs
         // Label "Name"
@@ -46,72 +54,103 @@ public class RegisterView extends JDialog {
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        add(new JLabel("Name"), gbc);
+        JLabel lblName = new JLabel("Nom");
+        registerPanel.add(lblName, gbc);
+        dynamicComponents.add(lblName);
 
         // TextField pour "Name"
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(new JTextField(15), gbc);
+        JTextField tfName = new JTextField(15);
+        registerPanel.add(tfName, gbc);
+        dynamicComponents.add(tfName);
 
         // Label "Email"
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        add(new JLabel("Email"), gbc);
+        JLabel lblEmail = new JLabel("Email");
+        registerPanel.add(lblEmail, gbc);
+        dynamicComponents.add(lblEmail);
 
         // TextField pour "Email"
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(new JTextField(15), gbc);
+        JTextField tfEmail = new JTextField(15);
+        registerPanel.add(tfEmail, gbc);
+        dynamicComponents.add(tfEmail);
 
         // Label "Phone"
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        add(new JLabel("Phone"), gbc);
+        JLabel lblPhone = new JLabel("Telephone");
+        registerPanel.add(lblPhone, gbc);
+        dynamicComponents.add(lblPhone);
 
         // TextField pour "Phone"
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(new JTextField(15), gbc);
+        JTextField tfPhone = new JTextField(15);
+        registerPanel.add(tfPhone, gbc);
+        dynamicComponents.add(tfPhone);
 
         // Label "Password"
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        add(new JLabel("Password"), gbc);
+        JLabel lblPassword = new JLabel("Mot de passe");
+        registerPanel.add(lblPassword, gbc);
+        dynamicComponents.add(lblPassword);
 
         // PasswordField pour "Password"
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(new JPasswordField(15), gbc);
+        JPasswordField pfPassword = new JPasswordField(15);
+        registerPanel.add(pfPassword, gbc);
+        dynamicComponents.add(pfPassword);
 
         // Label "Confirm Password"
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        add(new JLabel("Confirm Password"), gbc);
+        JLabel lblConfirmPassword = new JLabel("Confirmer le mot de passe");
+        registerPanel.add(lblConfirmPassword, gbc);
+        dynamicComponents.add(lblConfirmPassword);
 
         // PasswordField pour "Confirm Password"
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(new JPasswordField(15), gbc);
+        JPasswordField pfConfirmPassword = new JPasswordField(15);
+        registerPanel.add(pfConfirmPassword, gbc);
+        dynamicComponents.add(pfConfirmPassword);
 
-        // Bouton "Register"
+        // Bouton "Inscription"
         gbc.gridx = 1;
         gbc.gridy = 8;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(new JButton("Inscription"), gbc);
+        JButton btnInscription = new JButton("Inscription");
+        registerPanel.add(btnInscription, gbc);
+        dynamicComponents.add(btnInscription);
+
+        // Bouton "Effacer"
+        gbc.gridx = 2;
+        gbc.gridy = 8;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        JButton btnEffacer = new JButton("Effacer");
+        registerPanel.add(btnEffacer, gbc);
+        dynamicComponents.add(btnEffacer);
 
         // Champs spécifiques au type d'utilisateur
         if (cbChoisirRole.getSelectedItem().equals("Client")) {
@@ -119,49 +158,65 @@ public class RegisterView extends JDialog {
             gbc.gridy = 6;
             gbc.gridwidth = 1;
             gbc.fill = GridBagConstraints.NONE;
-            add(new JLabel("Informations sur l'Emploi"), gbc);
+            JLabel lblEmploy = new JLabel("Informations sur l'Emploi");
+            registerPanel.add(lblEmploy, gbc);
+            dynamicComponents.add(lblEmploy);
 
             // TextField pour "EmploymentInfoField"
             gbc.gridx = 1;
             gbc.gridwidth = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            add(new JTextField(15), gbc);
+            JTextField tfEmploy = new JTextField(15);
+            registerPanel.add(tfEmploy, gbc);
+            dynamicComponents.add(tfEmploy);
 
             gbc.gridx = 0;
             gbc.gridy = 7;
             gbc.gridwidth = 1;
             gbc.fill = GridBagConstraints.NONE;
-            add(new JLabel("Revenu Annuel"), gbc);
+            JLabel lblRevenu = new JLabel("Revenu Annuel");
+            registerPanel.add(lblRevenu, gbc);
+            dynamicComponents.add(lblRevenu);
 
             // TextField pour "Name"
             gbc.gridx = 1;
             gbc.gridwidth = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            add(new JTextField(15), gbc);
+            JTextField tfRevenu = new JTextField(15);
+            registerPanel.add(tfRevenu, gbc);
+            dynamicComponents.add(tfRevenu);
         } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
             gbc.gridx = 0;
             gbc.gridy = 6;
             gbc.gridwidth = 1;
             gbc.fill = GridBagConstraints.NONE;
-            add(new JLabel("Nom de la Banque"), gbc);
+            JLabel lblBanque = new JLabel("Nom de la Banque");
+            registerPanel.add(lblBanque, gbc);
+            dynamicComponents.add(lblBanque);
 
             // TextField pour "EmploymentInfoField"
             gbc.gridx = 1;
             gbc.gridwidth = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            add(new JTextField(15), gbc);
+            JTextField tfBanque = new JTextField(15);
+            registerPanel.add(tfBanque, gbc);
+            dynamicComponents.add(tfBanque);
 
             gbc.gridx = 0;
             gbc.gridy = 7;
             gbc.gridwidth = 1;
             gbc.fill = GridBagConstraints.NONE;
-            add(new JLabel("Détails du Compte Bancaire"), gbc);
+            JLabel lblDetailsBanque = new JLabel("Détails du Compte Bancaire");
+            registerPanel.add(lblDetailsBanque, gbc);
+            dynamicComponents.add(lblDetailsBanque);
 
             // TextField pour "Name"
             gbc.gridx = 1;
             gbc.gridwidth = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            add(new JTextField(15), gbc);
+            JTextField tfDetailsBanque = new JTextField(15);
+            registerPanel.add(tfDetailsBanque, gbc);
+            dynamicComponents.add(tfDetailsBanque);
         }
         registerPanel.revalidate();
         registerPanel.repaint();
