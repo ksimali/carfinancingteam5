@@ -16,6 +16,14 @@ public class ValiderChamp {
         String password = new String(pfPassword.getPassword());
         String confirmPassword = new String(pfConfirmPassword.getPassword());
 
+        // Verification que aucun champ n'est vide
+        for (JTextField field : fields) {
+            if (field.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(parent, "Tous les champs doivent être remplis.");
+                return false;
+            }
+        }
+
         // Vérifier que les champs de mot de passe correspondent
         if (!password.equals(confirmPassword)) {
             JOptionPane.showMessageDialog(parent, "Les mots de passe ne correspondent pas.");
@@ -28,13 +36,6 @@ public class ValiderChamp {
             return false;
         }
 
-        // Verification que aucun champ n'est vide
-        for (JTextField field : fields) {
-            if (field.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(parent, "Tous les champs doivent être remplis.");
-                return false;
-            }
-        }
         return true; // Toutes les validations ont réussi
     }
 }

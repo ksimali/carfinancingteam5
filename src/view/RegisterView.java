@@ -252,14 +252,21 @@ public class RegisterView extends JDialog {
             if(valid){
                 Client client = new Client(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfEmploy.getText(), BigDecimal.valueOf(Double.parseDouble(tfRevenu.getText())));
                 client.afficherDetails();
+                effacer();
+                JOptionPane.showMessageDialog(this, "Client " + tfName.getText() + " cree avec succes.");
+                this.dispose();
             }
         } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
             valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, this, tfBanque, tfDetailsBanque, tfName, tfEmail, tfPhone);
             if(valid){
                 Investor investor = new Investor(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfBanque.getText(), tfDetailsBanque.getText());
                 investor.afficherDetails();
+                effacer();
+                JOptionPane.showMessageDialog(this, "Investisseur " + tfName.getText() + " cree avec succes.");
+                this.dispose();
             }
         }
+
     }
 
     private void effacer() {
