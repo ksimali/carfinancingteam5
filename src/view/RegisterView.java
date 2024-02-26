@@ -1,16 +1,21 @@
 package view;
 
+import Outils.ValiderChamp;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class RegisterView extends JDialog {
     private final JComboBox<String> cbChoisirRole;
     private final JPanel registerPanel;
     private final GridBagConstraints gbc;
-    private ArrayList<Component> dynamicComponents = new ArrayList<Component>(); // Liste pour garder une trace des composants dynamiques
+    private final ArrayList<Component> dynamicComponents = new ArrayList<Component>();
 
+    JTextField tfName, tfEmail, tfPhone, tfEmploy, tfRevenu, tfBanque, tfDetailsBanque;
+    JPasswordField pfPassword, pfConfirmPassword;
 
     public RegisterView(){
         setTitle("S'inscrire");
@@ -62,7 +67,7 @@ public class RegisterView extends JDialog {
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        JTextField tfName = new JTextField(15);
+        tfName = new JTextField(15);
         registerPanel.add(tfName, gbc);
         dynamicComponents.add(tfName);
 
@@ -79,7 +84,7 @@ public class RegisterView extends JDialog {
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        JTextField tfEmail = new JTextField(15);
+        tfEmail = new JTextField(15);
         registerPanel.add(tfEmail, gbc);
         dynamicComponents.add(tfEmail);
 
@@ -96,7 +101,7 @@ public class RegisterView extends JDialog {
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        JTextField tfPhone = new JTextField(15);
+        tfPhone = new JTextField(15);
         registerPanel.add(tfPhone, gbc);
         dynamicComponents.add(tfPhone);
 
@@ -113,7 +118,7 @@ public class RegisterView extends JDialog {
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        JPasswordField pfPassword = new JPasswordField(15);
+        pfPassword = new JPasswordField(15);
         registerPanel.add(pfPassword, gbc);
         dynamicComponents.add(pfPassword);
 
@@ -130,7 +135,7 @@ public class RegisterView extends JDialog {
         gbc.gridx = 1;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        JPasswordField pfConfirmPassword = new JPasswordField(15);
+        pfConfirmPassword = new JPasswordField(15);
         registerPanel.add(pfConfirmPassword, gbc);
         dynamicComponents.add(pfConfirmPassword);
 
@@ -143,6 +148,13 @@ public class RegisterView extends JDialog {
         registerPanel.add(btnInscription, gbc);
         dynamicComponents.add(btnInscription);
 
+        btnInscription.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sInscrire();
+            }
+        });
+
         // Bouton "Effacer"
         gbc.gridx = 2;
         gbc.gridy = 8;
@@ -151,6 +163,13 @@ public class RegisterView extends JDialog {
         JButton btnEffacer = new JButton("Effacer");
         registerPanel.add(btnEffacer, gbc);
         dynamicComponents.add(btnEffacer);
+
+        btnEffacer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                effacer();
+            }
+        });
 
         // Champs spécifiques au type d'utilisateur
         if (cbChoisirRole.getSelectedItem().equals("Client")) {
@@ -162,11 +181,11 @@ public class RegisterView extends JDialog {
             registerPanel.add(lblEmploy, gbc);
             dynamicComponents.add(lblEmploy);
 
-            // TextField pour "EmploymentInfoField"
+            // TextField pour "Informations emploi"
             gbc.gridx = 1;
             gbc.gridwidth = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            JTextField tfEmploy = new JTextField(15);
+            tfEmploy = new JTextField(15);
             registerPanel.add(tfEmploy, gbc);
             dynamicComponents.add(tfEmploy);
 
@@ -178,11 +197,11 @@ public class RegisterView extends JDialog {
             registerPanel.add(lblRevenu, gbc);
             dynamicComponents.add(lblRevenu);
 
-            // TextField pour "Name"
+            // TextField pour "Revenu"
             gbc.gridx = 1;
             gbc.gridwidth = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            JTextField tfRevenu = new JTextField(15);
+            tfRevenu = new JTextField(15);
             registerPanel.add(tfRevenu, gbc);
             dynamicComponents.add(tfRevenu);
         } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
@@ -194,11 +213,11 @@ public class RegisterView extends JDialog {
             registerPanel.add(lblBanque, gbc);
             dynamicComponents.add(lblBanque);
 
-            // TextField pour "EmploymentInfoField"
+            // TextField pour "Nom Banque"
             gbc.gridx = 1;
             gbc.gridwidth = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            JTextField tfBanque = new JTextField(15);
+            tfBanque = new JTextField(15);
             registerPanel.add(tfBanque, gbc);
             dynamicComponents.add(tfBanque);
 
@@ -210,15 +229,32 @@ public class RegisterView extends JDialog {
             registerPanel.add(lblDetailsBanque, gbc);
             dynamicComponents.add(lblDetailsBanque);
 
-            // TextField pour "Name"
+            // TextField pour "Details Banque"
             gbc.gridx = 1;
             gbc.gridwidth = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            JTextField tfDetailsBanque = new JTextField(15);
+            tfDetailsBanque = new JTextField(15);
             registerPanel.add(tfDetailsBanque, gbc);
             dynamicComponents.add(tfDetailsBanque);
         }
         registerPanel.revalidate();
         registerPanel.repaint();
+    }
+
+    private void sInscrire() {
+        boolean valid = false;
+        if (cbChoisirRole.getSelectedItem().equals("Client")) {
+            valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, this, tfEmploy, tfRevenu, tfName, tfEmail, tfPhone);
+        } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
+            valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, this, tfBanque, tfDetailsBanque, tfName, tfEmail, tfPhone);
+        }
+    }
+
+    private void effacer() {
+        if (cbChoisirRole.getSelectedItem().equals("Client")) {
+            cbChoisirRole.setSelectedItem("Client");
+        } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
+            cbChoisirRole.setSelectedItem("Investisseur");
+        }
     }
 }
