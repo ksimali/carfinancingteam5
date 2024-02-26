@@ -3,7 +3,7 @@ package model;
 public class Investor extends User {
     // Attributes
     private String bankName;
-    private char bankAccount;
+    private String bankAccount;
     private String riskLevel;
     private String financialEducation;
 
@@ -12,7 +12,7 @@ public class Investor extends User {
         return bankName;
     }
 
-    public char getBankAccount() {
+    public String getBankAccount() {
         return bankAccount;
     }
     public String getRiskLevel(){
@@ -25,7 +25,7 @@ public class Investor extends User {
     public void setBankName(String bankName) {
         this.bankName = bankName;
     }
-    public void setBankAccount(char bankAccount){
+    public void setBankAccount(String bankAccount){
         this.bankAccount = bankAccount;
     }
     public void setRiskLevel(String riskLevel){
@@ -35,7 +35,7 @@ public class Investor extends User {
         this.financialEducation = financialEducation;
     }
     // Constructor
-    public Investor(String name, String email, String password, String phone, String bankName, char bankAccount, String riskLevel,String financialEducation){
+    public Investor(String name, String email, String password, String phone, String bankName, String bankAccount, String riskLevel,String financialEducation){
         super(name,email,password,phone);
         this.bankName = bankName;
         this.bankAccount = bankAccount;
