@@ -3,7 +3,6 @@ package model;
 import java.math.BigDecimal;
 
 public class Client extends User {
-
     // Attributes
     private String job;
     private BigDecimal income;

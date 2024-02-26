@@ -1,7 +1,7 @@
 package model;
 
 public class Investor extends User {
-
+    // Attributes
     private String bankName;
     private char bankAccount;
 

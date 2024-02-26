@@ -1,7 +1,6 @@
 package model;
 
 public class User {
-
     // User attributes
     private String name;
     private String email;
