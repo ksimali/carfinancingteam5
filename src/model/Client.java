@@ -31,7 +31,7 @@ public class Client extends User {
         return residencyPeriod;
     }
     // Setters
-    public void setOccupation(String job) {
+    public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
     public void setIncome(BigDecimal income){
