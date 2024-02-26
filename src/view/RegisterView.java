@@ -1,12 +1,16 @@
 package view;
 
 import Outils.ValiderChamp;
+import model.Client;
+import model.Investor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RegisterView extends JDialog {
     private final JComboBox<String> cbChoisirRole;
@@ -245,8 +249,16 @@ public class RegisterView extends JDialog {
         boolean valid = false;
         if (cbChoisirRole.getSelectedItem().equals("Client")) {
             valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, this, tfEmploy, tfRevenu, tfName, tfEmail, tfPhone);
+            if(valid){
+                Client client = new Client(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfEmploy.getText(), BigDecimal.valueOf(Double.parseDouble(tfRevenu.getText())));
+                client.afficherDetails();
+            }
         } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
             valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, this, tfBanque, tfDetailsBanque, tfName, tfEmail, tfPhone);
+            if(valid){
+                Investor investor = new Investor(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfBanque.getText(), tfDetailsBanque.getText());
+                investor.afficherDetails();
+            }
         }
     }
 

@@ -3,26 +3,26 @@ package model;
 public class Investor extends User {
     // Attributes
     private String bankName;
-    private char bankAccount;
+    private String bankAccount;
 
     // Getters
     public String getBankName(){
         return bankName;
     }
 
-    public char getBankAccount() {
+    public String getBankAccount() {
         return bankAccount;
     }
     // Setters
     public void setBankName(String bankName) {
         this.bankName = bankName;
     }
-    public void setBankAccount(char bankAccount){
+    public void setBankAccount(String bankAccount){
         this.bankAccount = bankAccount;
     }
 
     // Constructor
-    public Investor(String name, String email, String password, String phone, String bankName, char bankAccount){
+    public Investor(String name, String email, String password, String phone, String bankName, String bankAccount){
         super(name,email,password,phone);
         this.bankName = bankName;
         this.bankAccount = bankAccount;
