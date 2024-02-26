@@ -31,7 +31,7 @@ public class Investor extends User {
     public void setRiskLevel(String riskLevel){
         this.riskLevel = riskLevel;
     }
-    public void setInvestmentLiteracy(String investmentLiteracy){
+    public void setInvestmentLiteracy(String financialEducation){
         this.financialEducation = financialEducation;
     }
     // Constructor
