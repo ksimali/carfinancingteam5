@@ -54,7 +54,7 @@ public class Main {
         mainPanel.setBackground(new Color(0,0,0,0)); // background transparent
         frame.add(mainPanel); //Add mainPanel to JFrame
 
-        descriptionPanel.setBounds(100,250,220,35);
+        descriptionPanel.setBounds(100,250,300,35);
         descriptionPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         descriptionPanel.setBackground(new Color(0,0,0,65)); // background transparent
         frame.add( descriptionPanel);
@@ -91,6 +91,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("the button is clicked!");
+                registerView.setVisible(true);
                 cardLayout.show(cardPanel, "Register");
             }
         });
