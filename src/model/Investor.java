@@ -29,6 +29,7 @@ public class Investor extends User {
     }
 
     // Methods
+    @Override
     public void afficherDetails(){
         super.afficherDetails();
         System.out.println("Nom_Banque: "+bankName+"\n"+"Compte bancaire: "+ bankAccount);

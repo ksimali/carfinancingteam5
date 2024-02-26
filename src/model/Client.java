@@ -29,6 +29,7 @@ public class Client extends User {
         this.income = income;
     }
     // Methods
+    @Override
     public void afficherDetails(){
         super.afficherDetails();
         System.out.println("job: " + job +"\n"+ "income: "+income);
