@@ -7,6 +7,7 @@ public class Investor extends User {
     private String riskLevel;
     private String financialEducation;
 
+
     // Getters
     public String getBankName(){
         return bankName;
@@ -35,7 +36,9 @@ public class Investor extends User {
         this.financialEducation = financialEducation;
     }
     // Constructor
+
     public Investor(String name, String email, String password, String phone, String bankName, String bankAccount, String riskLevel,String financialEducation){
+
         super(name,email,password,phone);
         this.bankName = bankName;
         this.bankAccount = bankAccount;
