@@ -83,6 +83,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("the button is clicked!");
+                loginView.setVisible(true);
                 cardLayout.show(cardPanel, "Login");
             }
         });
