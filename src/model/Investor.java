@@ -35,7 +35,7 @@ public class Investor extends User {
         this.financialEducation = financialEducation;
     }
     // Constructor
-    public Investor(String name, String email, String password, String phone, String bankName, String bankAccount, String riskLevel,String financialEducation){
+    public Investor(String name, String email, String password, String phone, String bankName, String bankAccount){
         super(name,email,password,phone);
         this.bankName = bankName;
         this.bankAccount = bankAccount;
