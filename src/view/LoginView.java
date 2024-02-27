@@ -14,7 +14,13 @@ public class LoginView {
 
         // Creation d'un nouvel objet JButton
         JButton button = new JButton("Login");
-        button.addActionListener(e -> System.out.println(""));
+
+        // Ajout d'un action listener et d'une fonction pour afficher l'entrée de l'utilisateur
+        button.addActionListener(e -> {
+            String username = textFieldUsername.getText();
+            String password = textFieldPassword.getText();
+            JOptionPane.showMessageDialog(frame, "Username: " + username + "\nPassword: " + password);
+        });
 
         // Ajout des composants au frame
         frame.add(textFieldUsername);
