@@ -50,7 +50,7 @@ public class Client extends User {
         this.residencyPeriod = residencyPeriod;
     }
     // Constructor
-    public Client(String name, String email, String password, String phone, String job, BigDecimal income, int creditScore,Date birthday,String maritalStatus,int residencyPeriod){
+    public Client(String name, String email, String password, String phone, String job, BigDecimal income){
         super(name, email, password, phone);
         this.occupation = job;
         this.income = income;
