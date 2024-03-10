@@ -18,6 +18,7 @@ public class RegisterView extends JDialog {
     private final JPanel registerPanel;
     private final GridBagConstraints gbc;
     private final ArrayList<Component> dynamicComponents = new ArrayList<Component>();
+    private JComboBox<String> cbMaritalStatut;
     private JComboBox<String> cbRiskLevel;
     private JComboBox<String> cbEduLevel;
 
@@ -263,9 +264,12 @@ public class RegisterView extends JDialog {
             gbc.gridx = 1;
             gbc.gridwidth = 2;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            tfMaritalStatut = new JTextField(15);
-            registerPanel.add(tfMaritalStatut, gbc);
-            dynamicComponents.add(tfMaritalStatut);
+            // Initialisation et ajout de la liste deroulante
+            String[] martialStatut = {"Célibataire", "marié(e)"};
+            cbMaritalStatut = new JComboBox<>(martialStatut);
+            registerPanel.add(cbMaritalStatut, gbc);
+            dynamicComponents.add(cbMaritalStatut);
+            cbMaritalStatut.setSelectedItem("Célibataire");
 
             // Label pour la durée de vie au Canada : "Etabli au Canada depuis"
             gbc.gridx = 0;
