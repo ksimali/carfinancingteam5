@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,14 +18,19 @@ public class RegisterView extends JDialog {
     private final JPanel registerPanel;
     private final GridBagConstraints gbc;
     private final ArrayList<Component> dynamicComponents = new ArrayList<Component>();
+    private JComboBox<String> cbMaritalStatut;
+    private JComboBox<String> cbRiskLevel;
+    private JComboBox<String> cbEduLevel;
 
     JTextField tfName, tfEmail, tfPhone, tfEmploy, tfRevenu, tfBanque, tfDetailsBanque;
+    JTextField tfCreditScore, tfBirthday, tfMaritalStatut, tfResidencyPeriod;
     JPasswordField pfPassword, pfConfirmPassword;
 
     public RegisterView(){
         setTitle("S'inscrire");
-        setSize(500, 400);
+        setSize(550, 550);
         setLocationRelativeTo(null);
+        setResizable(false); // windows not resizable
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         GridBagLayout gbl = new GridBagLayout();
         registerPanel = new JPanel(gbl);
@@ -145,7 +151,7 @@ public class RegisterView extends JDialog {
 
         // Bouton "Inscription"
         gbc.gridx = 1;
-        gbc.gridy = 8;
+        gbc.gridy = 12;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         JButton btnInscription = new JButton("Inscription");
@@ -161,7 +167,7 @@ public class RegisterView extends JDialog {
 
         // Bouton "Effacer"
         gbc.gridx = 2;
-        gbc.gridy = 8;
+        gbc.gridy = 12;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         JButton btnEffacer = new JButton("Effacer");
@@ -176,7 +182,9 @@ public class RegisterView extends JDialog {
         });
 
         // Champs spécifiques au type d'utilisateur
-        if (cbChoisirRole.getSelectedItem().equals("Client")) {
+        if (cbChoisirRole.getSelectedItem().equals("Client"))
+        {
+            System.out.println(cbChoisirRole.getSelectedItem());
             gbc.gridx = 0;
             gbc.gridy = 6;
             gbc.gridwidth = 1;
@@ -208,7 +216,80 @@ public class RegisterView extends JDialog {
             tfRevenu = new JTextField(15);
             registerPanel.add(tfRevenu, gbc);
             dynamicComponents.add(tfRevenu);
-        } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
+
+            // Label pour "Note de Credit"
+            gbc.gridx = 0;
+            gbc.gridy = 8;
+            gbc.gridwidth = 1;
+            gbc.fill = GridBagConstraints.NONE;
+            JLabel lblCreditScore = new JLabel("Note de Credit");
+            registerPanel.add(lblCreditScore, gbc);
+            dynamicComponents.add(lblCreditScore);
+
+            // Textfield pour "Note de Credit"
+            gbc.gridx = 1;
+            gbc.gridwidth = 2;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            tfCreditScore = new JTextField(15);
+            registerPanel.add(tfCreditScore, gbc);
+            dynamicComponents.add(tfCreditScore);
+
+            // Label pour "Date de Naissance"
+            gbc.gridx = 0;
+            gbc.gridy = 9;
+            gbc.gridwidth = 1;
+            gbc.fill = GridBagConstraints.NONE;
+            JLabel lblDateNaissance = new JLabel("Date de Naissance");
+            registerPanel.add(lblDateNaissance, gbc);
+            dynamicComponents.add(lblDateNaissance);
+
+            // Textfield pour "Date de Naissance"
+            gbc.gridx = 1;
+            gbc.gridwidth = 2;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            tfBirthday = new JTextField(15);
+            registerPanel.add(tfBirthday, gbc);
+            dynamicComponents.add(tfBirthday);
+
+            // Label pour "Statut Marital"
+            gbc.gridx = 0;
+            gbc.gridy = 10;
+            gbc.gridwidth = 1;
+            gbc.fill = GridBagConstraints.NONE;
+            JLabel lblStatutMarital = new JLabel("Statut Marital");
+            registerPanel.add(lblStatutMarital, gbc);
+            dynamicComponents.add(lblStatutMarital);
+
+            // TextField pour " Statut Marital"
+            gbc.gridx = 1;
+            gbc.gridwidth = 2;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            // Initialisation et ajout de la liste deroulante
+            String[] martialStatut = {"Célibataire", "marié(e)"};
+            cbMaritalStatut = new JComboBox<>(martialStatut);
+            registerPanel.add(cbMaritalStatut, gbc);
+            dynamicComponents.add(cbMaritalStatut);
+            cbMaritalStatut.setSelectedItem("Célibataire");
+
+            // Label pour la durée de vie au Canada : "Etabli au Canada depuis"
+            gbc.gridx = 0;
+            gbc.gridy = 11;
+            gbc.gridwidth = 1;
+            gbc.fill = GridBagConstraints.NONE;
+            JLabel lblSejourCanada = new JLabel("Etabli au Canada depuis (en mois)");
+            registerPanel.add(lblSejourCanada, gbc);
+            dynamicComponents.add(lblSejourCanada);
+
+            // TextField pour la durée de vie au Canada : "Etabli au Canada depuis"
+            gbc.gridx = 1;
+            gbc.gridwidth = 2;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            tfResidencyPeriod = new JTextField(15);
+            registerPanel.add(tfResidencyPeriod, gbc);
+            dynamicComponents.add(tfResidencyPeriod);
+
+        }else if (cbChoisirRole.getSelectedItem().equals("Investisseur"))
+        {
             gbc.gridx = 0;
             gbc.gridy = 6;
             gbc.gridwidth = 1;
@@ -225,6 +306,7 @@ public class RegisterView extends JDialog {
             registerPanel.add(tfBanque, gbc);
             dynamicComponents.add(tfBanque);
 
+            // LabelField pour "Details Banque"
             gbc.gridx = 0;
             gbc.gridy = 7;
             gbc.gridwidth = 1;
@@ -240,6 +322,46 @@ public class RegisterView extends JDialog {
             tfDetailsBanque = new JTextField(15);
             registerPanel.add(tfDetailsBanque, gbc);
             dynamicComponents.add(tfDetailsBanque);
+
+            // LabelField pour "Niveau de risque souhaité"
+            gbc.gridx = 0;
+            gbc.gridy = 8;
+            gbc.gridwidth = 1;
+            gbc.fill = GridBagConstraints.NONE;
+            JLabel lblRiskLevel = new JLabel("Niveau de risque souhaité");
+            registerPanel.add(lblRiskLevel, gbc);
+            dynamicComponents.add(lblRiskLevel);
+
+            // TextField pour "Niveau de risque"
+            gbc.gridx = 1;
+            gbc.gridwidth = 2;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            // Initialisation et ajout de la liste deroulante
+            String[] riskLevel = {"peu de risque", "risqué","très risqué"};
+            cbRiskLevel = new JComboBox<>(riskLevel);
+            registerPanel.add(cbRiskLevel, gbc);
+            dynamicComponents.add(cbRiskLevel);
+            cbRiskLevel.setSelectedItem("peu de risque");
+
+            // LabelField pour "Niveau d'Etude en Investissement"
+            gbc.gridx = 0;
+            gbc.gridy = 9;
+            gbc.gridwidth = 1;
+            gbc.fill = GridBagConstraints.NONE;
+            JLabel lblEduLevel = new JLabel("Niveau d'étude en Investissement");
+            registerPanel.add(lblEduLevel, gbc);
+            dynamicComponents.add(lblEduLevel);
+
+            // TextField pour "Niveau d'Etude en Investissement'"
+            gbc.gridx = 1;
+            gbc.gridwidth = 3;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            // Initialisation et ajout de la liste deroulante
+            String[] eduLevel = {"peu", "moyen","beaucoup"};
+            cbEduLevel = new JComboBox<>(eduLevel);
+            registerPanel.add(cbEduLevel, gbc);
+            dynamicComponents.add(cbEduLevel);
+            cbEduLevel.setSelectedItem("peu");
         }
         registerPanel.revalidate();
         registerPanel.repaint();
@@ -250,7 +372,7 @@ public class RegisterView extends JDialog {
         if (cbChoisirRole.getSelectedItem().equals("Client")) {
             valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, tfEmail, this, tfEmploy, tfRevenu, tfName, tfPhone);
             if(valid){
-                Client client = new Client(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfEmploy.getText(), BigDecimal.valueOf(Double.parseDouble(tfRevenu.getText())));
+                Client client = new Client(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfEmploy.getText(), BigDecimal.valueOf(Double.parseDouble(tfRevenu.getText())),Integer.parseInt(tfCreditScore.getText()), LocalDate.parse(tfBirthday.getText()), tfMaritalStatut.getText(), Integer.parseInt(tfResidencyPeriod.getText()));
                 client.afficherDetails();
                 effacer();
                 JOptionPane.showMessageDialog(this, "Client " + tfName.getText() + " cree avec succes.");
@@ -259,7 +381,7 @@ public class RegisterView extends JDialog {
         } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
             valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, tfEmail, this, tfBanque, tfDetailsBanque, tfName, tfPhone);
             if(valid){
-                Investor investor = new Investor(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfBanque.getText(), tfDetailsBanque.getText());
+                Investor investor = new Investor(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfBanque.getText(), tfDetailsBanque.getText(), cbRiskLevel.getSelectedItem().toString(),cbEduLevel.getSelectedItem().toString() );
                 investor.afficherDetails();
                 effacer();
                 JOptionPane.showMessageDialog(this, "Investisseur " + tfName.getText() + " cree avec succes.");
