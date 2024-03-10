@@ -248,7 +248,7 @@ public class RegisterView extends JDialog {
     private void sInscrire() {
         boolean valid = false;
         if (cbChoisirRole.getSelectedItem().equals("Client")) {
-            valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, this, tfEmploy, tfRevenu, tfName, tfEmail, tfPhone);
+            valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, tfEmail, this, tfEmploy, tfRevenu, tfName, tfPhone);
             if(valid){
                 Client client = new Client(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfEmploy.getText(), BigDecimal.valueOf(Double.parseDouble(tfRevenu.getText())));
                 client.afficherDetails();
@@ -257,7 +257,7 @@ public class RegisterView extends JDialog {
                 this.dispose();
             }
         } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
-            valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, this, tfBanque, tfDetailsBanque, tfName, tfEmail, tfPhone);
+            valid = ValiderChamp.validerInscription(pfPassword, pfConfirmPassword, tfEmail, this, tfBanque, tfDetailsBanque, tfName, tfPhone);
             if(valid){
                 Investor investor = new Investor(tfName.getText(), tfEmail.getText(), new String(pfPassword.getPassword()), tfPhone.getText(), tfBanque.getText(), tfDetailsBanque.getText());
                 investor.afficherDetails();
