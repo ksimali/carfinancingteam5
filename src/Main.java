@@ -1,3 +1,4 @@
+import Config.PostgreSQLConfig;
 import view.LoginView;
 import view.RegisterView;
 
@@ -107,7 +108,8 @@ public class Main {
                 start.setUpMain();
             }
         };
-
         SwingUtilities.invokeAndWait(initFrame);
+        PostgreSQLConfig.initializeDatabase();
     }
 }
+//docker exec -it carfinancingteam5 psql -U root carfinancingteam5
