@@ -31,11 +31,16 @@ public class Investor extends User {
     public void setRiskLevel(String riskLevel){
         this.riskLevel = riskLevel;
     }
-    public void setInvestmentLiteracy(String financialEducation){
+    public void setFinancialEducation(String financialEducation){
         this.financialEducation = financialEducation;
     }
     // Constructor
-    public Investor(String name, String email, String password, String phone, String bankName, String bankAccount){
+
+    public Investor() {
+        super();
+    }
+
+    public Investor(String name, String email, String password, String phone, String bankName, String bankAccount, String riskLevel, String financialEducation){
         super(name,email,password,phone);
         this.bankName = bankName;
         this.bankAccount = bankAccount;

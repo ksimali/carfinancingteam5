@@ -83,6 +83,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("the button is clicked!");
+                loginView.setVisible(true);
                 cardLayout.show(cardPanel, "Login");
             }
         });
@@ -98,9 +99,8 @@ public class Main {
 
         // Button pour vérifier le statut de la demande de financement
         JButton statusButton = new JButton("Statut de la demande de financement");
-        mainPanel.add(statusButton); // Add the button to the main panel
+        mainPanel.add(statusButton);
 
-        // ActionListener to handle button clicks
         statusButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,5 +124,5 @@ public class Main {
         SwingUtilities.invokeAndWait(initFrame);
     }
 
-
 }
+

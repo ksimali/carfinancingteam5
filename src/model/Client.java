@@ -1,6 +1,7 @@
 package model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Client extends User {
@@ -8,7 +9,7 @@ public class Client extends User {
     private String occupation;
     private BigDecimal income;
     private int creditScore;
-    private Date birthday;
+    private LocalDate birthday;
     private String maritalStatus;
     private int residencyPeriod;
     // Getters
@@ -21,7 +22,7 @@ public class Client extends User {
     public int getCreditScore(){
         return creditScore;
     }
-    public Date getBirthday(){
+    public LocalDate getBirthday(){
         return birthday;
     }
     public String getMaritalStatus(){
@@ -40,7 +41,7 @@ public class Client extends User {
     public void setCreditScore(int creditScore){
         this.creditScore = creditScore;
     }
-    public void setBirthday(Date birthday){
+    public void setBirthday(LocalDate birthday){
         this.birthday = birthday;
     }
     public void setMaritalStatus(String maritalStatus){
@@ -50,9 +51,12 @@ public class Client extends User {
         this.residencyPeriod = residencyPeriod;
     }
     // Constructor
-    public Client(String name, String email, String password, String phone, String job, BigDecimal income){
+    public Client(){
+        super();
+    }
+    public Client(String name, String email, String password, String phone, String occupation, BigDecimal income, int creditScore, LocalDate birthday, String maritalStatus, int residencyPeriod){
         super(name, email, password, phone);
-        this.occupation = job;
+        this.occupation = occupation;
         this.income = income;
         this.creditScore = creditScore;
         this.birthday = birthday;
