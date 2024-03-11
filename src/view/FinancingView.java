@@ -111,7 +111,7 @@ public class FinancingView extends JDialog {
         gbc.gridy = 6;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        JLabel lblDuree = new JLabel("Durée du prêt");
+        JLabel lblDuree = new JLabel("Durée du prêt(mois)");
         financingPanel.add(lblDuree, gbc);
 
         // TextField pour "Durée du prêt"
@@ -164,8 +164,7 @@ public class FinancingView extends JDialog {
         btnSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                // financingRequest();
+                submitRequest();
             }
         });
         // btnDelete addActionListener
@@ -189,6 +188,12 @@ public class FinancingView extends JDialog {
                 setVisible(false);
             }
         });
+    }
+    private void submitRequest(){
+        boolean valid = false;
+        System.out.println("Name: "+ tfName.getText()+ "\nEmail: " + tfEmail.getText()+"\nPhone:"
+                + tfPhone.getText()+"\nVIN: "+ tfVin.getText() + "\nMontant: "+ tfMontant.getText()
+                +"\nDurée: " + tfDuree.getText() +"\nKm:" + tfKm.getText());
     }
 }
 
