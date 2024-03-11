@@ -95,6 +95,20 @@ public class Main {
                 cardLayout.show(cardPanel, "Register");
             }
         });
+
+        // Button pour vérifier le statut de la demande de financement
+        JButton statusButton = new JButton("Statut de la demande de financement");
+        mainPanel.add(statusButton); // Add the button to the main panel
+
+        // ActionListener to handle button clicks
+        statusButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Add code to handle the button click, such as displaying the status view
+                // For example:
+                // displayFinancingStatusView();
+            }
+        });
     }
 
     //  Main method
@@ -109,4 +123,6 @@ public class Main {
 
         SwingUtilities.invokeAndWait(initFrame);
     }
+
+
 }
