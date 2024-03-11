@@ -1,5 +1,7 @@
+import view.FinancingView;
 import view.LoginView;
 import view.RegisterView;
+import view.FinancingView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +21,8 @@ public class Main {
     private JPanel cardPanel;
     private LoginView loginView;
     private RegisterView registerView;
+    private JButton testButton;
+    private FinancingView financingView;
 
     // constructor for the Main class
     public Main(){
@@ -33,6 +37,8 @@ public class Main {
         cardPanel = new JPanel(cardLayout);
         loginView = new LoginView();
         registerView =  new RegisterView();
+        financingView = new FinancingView();
+        testButton = new JButton("Financement");
     }
     public void setUpMain() {
         //Setting up JFrame
@@ -65,6 +71,9 @@ public class Main {
         // Setting up 'Inscription' button
         mainPanel.add(registerButton); //Add button to the main panel
 
+        // Setup test button
+        mainPanel.add(testButton); //Add button to the main panel
+
         // Setting up descriptionLabel
         descriptionLabel.setBounds(40,250,220,35);
         descriptionPanel.add(descriptionLabel);
@@ -94,6 +103,15 @@ public class Main {
                 System.out.println("the button is clicked!");
                 registerView.setVisible(true);
                 cardLayout.show(cardPanel, "Register");
+            }
+        });
+
+        testButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("the button is clicked!");
+                financingView.setVisible(true);
+                cardLayout.show(cardPanel, "financing");
             }
         });
     }
