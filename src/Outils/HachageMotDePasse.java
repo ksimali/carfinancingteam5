@@ -6,7 +6,7 @@ import java.security.SecureRandom;
 
 public class HachageMotDePasse {
     // Generer un sel aleatoire
-    private static byte[] recupererSel() throws NoSuchAlgorithmException {
+    public static byte[] recupererSel() throws NoSuchAlgorithmException {
         SecureRandom secureRandom = SecureRandom.getInstanceStrong();
         byte[] sel = new byte[16];
         secureRandom.nextBytes(sel);
@@ -14,7 +14,7 @@ public class HachageMotDePasse {
     }
 
     // Hachage du mot de passe a partir du sel generer
-    private static String hachMotPasse(String password, byte[] sel) throws NoSuchAlgorithmException {
+    public static String hachMotPasse(String password, byte[] sel) throws NoSuchAlgorithmException {
         // SHA-256
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
         messageDigest.update(sel);

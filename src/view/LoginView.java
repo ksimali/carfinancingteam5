@@ -1,11 +1,16 @@
 package view;
 
+import Dao.DonneesArrayList;
+import Outils.HachageMotDePasse;
 import Outils.ValiderChamp;
+import model.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 public class LoginView extends JDialog {
     private final JPanel loginPanel;
@@ -75,9 +80,45 @@ public class LoginView extends JDialog {
     private void seConnecter(){
         boolean valid = ValiderChamp.validerConnexion(pfPassword, tfEmail, this);
         if(valid){
-
-        } else {
-
+            System.out.println("Email: " + tfEmail.getText() + "\nMot de passe: " + new String(pfPassword.getPassword()));
+            User user = validateConnexion(tfEmail.getText(), new String(pfPassword.getPassword()));
+            if(user != null) {
+                user.afficherDetails();
+                JOptionPane.showMessageDialog(this, "User " + tfEmail.getText() + " connecte avec succes.");
+                effacer();
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Les informations entrees sont incorrectes.");
+            }
         }
+    }
+
+    private void effacer(){
+        tfEmail.setText("");
+        pfPassword.setText("");
+    }
+
+    private User validateConnexion(String email, String password) {
+        ArrayList<User> users = new ArrayList<>();
+        DonneesArrayList.users.forEach(user -> {
+            if(user.getEmail().equalsIgnoreCase(email)){
+                users.add(user);
+            }
+        });
+
+        User user = null;
+        if(!users.isEmpty()){
+            try {
+                user = users.get(0);
+                byte[] sel = user.getSel().getBytes();
+                String motDePasseHache = HachageMotDePasse.hachMotPasse(password, sel);
+                if(user.getPassword().equals(motDePasseHache)){
+                    return user;
+                }
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return user;
     }
 }

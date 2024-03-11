@@ -56,15 +56,15 @@ public class ValiderChamp {
     public static boolean validerConnexion(JPasswordField pfPassword, JTextField tfEmail, JDialog parent) {
         String password = new String(pfPassword.getPassword());
 
-        // Verification de la longueur du mot de passe et des caractères requis
-        if (!validerMotDePasse(password)) {
-            JOptionPane.showMessageDialog(parent, "Le mot de passe doit contenir plus de 7 caractères, incluant un caractère spécial, une lettre majuscule, et un chiffre.");
-            return false;
-        }
-
         // Verification du champ email
         if (!validerEmail(tfEmail.getText())) {
             JOptionPane.showMessageDialog(parent, "L'email ou son format est incorrect.");
+            return false;
+        }
+
+        // Verification de la longueur du mot de passe et des caractères requis
+        if (!validerMotDePasse(password)) {
+            JOptionPane.showMessageDialog(parent, "Le mot de passe doit contenir plus de 7 caractères, incluant un caractère spécial, une lettre majuscule, et un chiffre.");
             return false;
         }
 
