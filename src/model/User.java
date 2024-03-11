@@ -6,6 +6,7 @@ public class User {
     private String email;
     private String password;
     private String phone;
+    private String sel;
 
     // Getters
     public String getName() {
@@ -33,7 +34,15 @@ public class User {
     public void setPhone(String phone){
         this.phone = phone;
     }
+    public String getSel() {
+        return sel;
+    }
+    public void setSel(String sel) {
+        this.sel = sel;
+    }
+
     // Constructor
+    public User() {}
     public User(String name, String email, String password, String phone){
         this.name = name;
         this.email = email;
@@ -45,5 +54,7 @@ public class User {
     public void afficherDetails(){
         System.out.println("name: "+ name +"\n"+ "email: " + email +"\n"+ "password: "+ password+"\n"+"phone: "+ phone);
     }
+
+
 
 }
