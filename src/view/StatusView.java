@@ -13,8 +13,10 @@ public class StatusView extends JDialog {
         JLabel titleLabel = new JLabel("Financing Request Status");
         JLabel statusLabel = new JLabel("Status: In Progress");
         JProgressBar progressBar = new JProgressBar();
-        progressBar.setValue(20); // Set progress value (e.g., 20%)
+        progressBar.setValue(20);
         JButton closeButton = new JButton("Close");
+        JButton modifyButton = new JButton("Modifier la demande");
+        modifyButton.setEnabled(false);
 
         JPanel contentPane = new JPanel();
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -22,7 +24,8 @@ public class StatusView extends JDialog {
         contentPane.add(titleLabel);
         contentPane.add(statusLabel);
         contentPane.add(progressBar);
-        contentPane.add(Box.createVerticalStrut(10)); // Add some vertical space
+        contentPane.add(Box.createVerticalStrut(10));
+        contentPane.add(modifyButton);
         contentPane.add(closeButton);
 
         setContentPane(contentPane);
