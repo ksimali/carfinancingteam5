@@ -1,6 +1,4 @@
-import view.FinancingView;
-import view.LoginView;
-import view.RegisterView;
+import view.*;
 import view.FinancingView;
 
 import javax.swing.*;
@@ -15,7 +13,7 @@ public class Main {
     private JPanel descriptionPanel;
     private JButton loginButton;
     private JButton registerButton;
-    private  JLabel descriptionLabel;
+    private JLabel descriptionLabel;
     private JLabel contactLabel;
     private CardLayout cardLayout;
     private JPanel cardPanel;
@@ -23,9 +21,10 @@ public class Main {
     private RegisterView registerView;
     private JButton testButton;
     private FinancingView financingView;
+    private JButton statusButton;
 
     // constructor for the Main class
-    public Main(){
+    public Main() {
         frame = new JFrame();
         mainPanel = new JPanel();
         descriptionPanel = new JPanel();
@@ -36,10 +35,12 @@ public class Main {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
         loginView = new LoginView();
-        registerView =  new RegisterView();
+        registerView = new RegisterView();
         financingView = new FinancingView();
         testButton = new JButton("Financement");
+        statusButton = new JButton("Statut de la demande de financement");
     }
+
     public void setUpMain() {
         //Setting up JFrame
         frame.setTitle("Financement Automobile charExpress");
@@ -55,15 +56,15 @@ public class Main {
         frame.setLayout(new FlowLayout());
 
         //Setting up mainPanel, description panel
-        mainPanel.setBounds(40,150,220,35);
+        mainPanel.setBounds(40, 150, 220, 35);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        mainPanel.setBackground(new Color(0,0,0,0)); // background transparent
+        mainPanel.setBackground(new Color(0, 0, 0, 0)); // background transparent
         frame.add(mainPanel); //Add mainPanel to JFrame
 
-        descriptionPanel.setBounds(100,250,300,35);
+        descriptionPanel.setBounds(100, 250, 300, 35);
         descriptionPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        descriptionPanel.setBackground(new Color(0,0,0,65)); // background transparent
-        frame.add( descriptionPanel);
+        descriptionPanel.setBackground(new Color(0, 0, 0, 65)); // background transparent
+        frame.add(descriptionPanel);
 
         // Setting up 'Connexion' button
         mainPanel.add(loginButton); //Add button to the main panel
@@ -75,11 +76,11 @@ public class Main {
         mainPanel.add(testButton); //Add button to the main panel
 
         // Setting up descriptionLabel
-        descriptionLabel.setBounds(40,250,220,35);
+        descriptionLabel.setBounds(40, 250, 220, 35);
         descriptionPanel.add(descriptionLabel);
 
         // Set up JLabel contact Label
-        contactLabel.setBounds(100,400,220,35);
+        contactLabel.setBounds(100, 400, 220, 35);
         mainPanel.add(contactLabel);
 
         cardPanel.add(mainPanel, "Main");
@@ -106,21 +107,36 @@ public class Main {
             }
         });
 
+
         testButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("the button is clicked!");
                 financingView.setVisible(true);
                 cardLayout.show(cardPanel, "financing");
+
             }
         });
+
+        // Button pour vérifier le statut de la demande de financement
+        mainPanel.add(statusButton);
+
+        statusButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StatusView statusView = new StatusView(frame);
+                statusView.setVisible(true);
+                cardLayout.show(cardPanel, "status");
+            }
+        });
+
     }
 
     //  Main method
     public static void main(String[] args) throws Exception {
-        Runnable initFrame = new Runnable(){
+        Runnable initFrame = new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 Main start = new Main();
                 start.setUpMain();
             }
@@ -128,4 +144,5 @@ public class Main {
 
         SwingUtilities.invokeAndWait(initFrame);
     }
+
 }
