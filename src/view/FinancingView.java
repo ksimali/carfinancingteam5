@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Outils.FinancingFormValidation;
 
 public class FinancingView extends JDialog {
     private final JPanel financingPanel;
@@ -190,10 +191,14 @@ public class FinancingView extends JDialog {
         });
     }
     private void submitRequest(){
-        boolean valid = false;
         System.out.println("Name: "+ tfName.getText()+ "\nEmail: " + tfEmail.getText()+"\nPhone:"
                 + tfPhone.getText()+"\nVIN: "+ tfVin.getText() + "\nMontant: "+ tfMontant.getText()
                 +"\nDurée: " + tfDuree.getText() +"\nKm:" + tfKm.getText());
+        // appel du FinancingFormValidation
+        boolean valid = FinancingFormValidation.validateFields(tfName, tfEmail, this, tfPhone, tfVin, tfMontant, tfDuree, tfKm);
+        if(valid){
+            JOptionPane.showMessageDialog(this, "Votre demande de financement  pour le véhicule " + tfVin.getText() + " a bien été soumis avec succes.");
+        }
     }
 }
 
