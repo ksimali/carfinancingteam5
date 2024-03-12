@@ -112,4 +112,3 @@ public class Main {
         PostgreSQLConfig.initializeDatabase();
     }
 }
-//docker exec -it carfinancingteam5 psql -U root carfinancingteam5
