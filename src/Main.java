@@ -1,5 +1,7 @@
+import view.FinancingView;
 import view.LoginView;
 import view.RegisterView;
+import view.FinancingView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +21,8 @@ public class Main {
     private JPanel cardPanel;
     private LoginView loginView;
     private RegisterView registerView;
+    private JButton testButton;
+    private FinancingView financingView;
 
     // constructor for the Main class
     public Main(){
@@ -33,6 +37,8 @@ public class Main {
         cardPanel = new JPanel(cardLayout);
         loginView = new LoginView();
         registerView =  new RegisterView();
+        financingView = new FinancingView();
+        testButton = new JButton("Financement");
     }
     public void setUpMain() {
         //Setting up JFrame
@@ -64,6 +70,9 @@ public class Main {
 
         // Setting up 'Inscription' button
         mainPanel.add(registerButton); //Add button to the main panel
+
+        // Setup test button
+        mainPanel.add(testButton); //Add button to the main panel
 
         // Setting up descriptionLabel
         descriptionLabel.setBounds(40,250,220,35);
@@ -97,16 +106,12 @@ public class Main {
             }
         });
 
-        // Button pour vérifier le statut de la demande de financement
-        JButton statusButton = new JButton("Statut de la demande de financement");
-        mainPanel.add(statusButton);
-
-        statusButton.addActionListener(new ActionListener() {
+        testButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add code to handle the button click, such as displaying the status view
-                // For example:
-                // displayFinancingStatusView();
+                System.out.println("the button is clicked!");
+                financingView.setVisible(true);
+                cardLayout.show(cardPanel, "financing");
             }
         });
     }
@@ -123,6 +128,4 @@ public class Main {
 
         SwingUtilities.invokeAndWait(initFrame);
     }
-
 }
-
