@@ -1,5 +1,8 @@
-import view.*;
+import Config.PostgreSQLConfig;
 import view.FinancingView;
+import view.LoginView;
+import view.RegisterView;
+import view.StatusView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -141,8 +144,8 @@ public class Main {
                 start.setUpMain();
             }
         };
-
         SwingUtilities.invokeAndWait(initFrame);
+        PostgreSQLConfig.initializeDatabase();
     }
 
 }

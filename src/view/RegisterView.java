@@ -1,6 +1,9 @@
 package view;
 
+import Dao.ClientDAO;
+import Dao.ClientDAOImpl;
 import Dao.DonneesArrayList;
+import Dao.InvestorDAOImpl;
 import Outils.HachageMotDePasse;
 import Outils.ValiderChamp;
 import model.Client;
@@ -394,13 +397,15 @@ public class RegisterView extends JDialog {
                     String motDePasseHache = HachageMotDePasse.hachMotPasse(client.getPassword(), sel);
 
                     client.setPassword(motDePasseHache);
-                    client.setSel(Arrays.toString(sel));
+                    client.setSel(HachageMotDePasse.byteToString(sel));
                 } catch (NoSuchAlgorithmException e) {
                     throw new RuntimeException(e);
                 }
 
                 client.afficherDetails();
-                DonneesArrayList.users.add(client);
+                ClientDAOImpl clientDAOImppl = new ClientDAOImpl();
+                Client cl = clientDAOImppl.addClient(client);
+                DonneesArrayList.users.add(cl);
                 effacer();
                 JOptionPane.showMessageDialog(this, "Client " + tfName.getText() + " cree avec succes.");
                 cbChoisirRole.setSelectedItem("Selectionner un utilisateur...");
@@ -417,13 +422,15 @@ public class RegisterView extends JDialog {
                     String motDePasseHache = HachageMotDePasse.hachMotPasse(investor.getPassword(), sel);
 
                     investor.setPassword(motDePasseHache);
-                    investor.setSel(Arrays.toString(sel));
+                    investor.setSel(HachageMotDePasse.byteToString(sel));
                 } catch (NoSuchAlgorithmException e) {
                     throw new RuntimeException(e);
                 }
 
                 investor.afficherDetails();
-                DonneesArrayList.users.add(investor);
+                InvestorDAOImpl investorDAOImpl = new InvestorDAOImpl();
+                Investor iv = investorDAOImpl.addInvestor(investor);
+                DonneesArrayList.users.add(iv);
                 effacer();
                 JOptionPane.showMessageDialog(this, "Investisseur " + tfName.getText() + " cree avec succes.");
                 cbChoisirRole.setSelectedItem("Selectionner un utilisateur...");

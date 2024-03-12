@@ -1,8 +1,12 @@
 package view;
 
+import Dao.ClientDAOImpl;
 import Dao.DonneesArrayList;
+import Dao.InvestorDAOImpl;
 import Outils.HachageMotDePasse;
 import Outils.ValiderChamp;
+import model.Client;
+import model.Investor;
 import model.User;
 
 import javax.swing.*;
@@ -15,7 +19,7 @@ import java.util.ArrayList;
 public class LoginView extends JDialog {
     private final JPanel loginPanel;
     private final GridBagConstraints gbc;
-
+    private final JComboBox<String> cbChoisirRole;
     private JTextField tfEmail;
     private JPasswordField pfPassword;
 
@@ -62,8 +66,26 @@ public class LoginView extends JDialog {
         pfPassword = new JPasswordField(15);
         loginPanel.add(pfPassword, gbc);
 
-        gbc.gridx = 1;
+        // LabelField pour "TypeUtilisateur"
+        gbc.gridx = 0;
         gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.NONE;
+        JLabel lblType = new JLabel("Type utilisateur");
+        loginPanel.add(lblType, gbc);
+
+        // TextField pour "Niveau de risque"
+        gbc.gridx = 1;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        // Initialisation et ajout de la liste deroulante
+        String[] typeUtilisateur = {"Client", "Investisseur"};
+        cbChoisirRole = new JComboBox<>(typeUtilisateur);
+        loginPanel.add(cbChoisirRole, gbc);
+        cbChoisirRole.setSelectedItem("Client");
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         JButton btnConnexion = new JButton("Connexion");
@@ -80,15 +102,41 @@ public class LoginView extends JDialog {
     private void seConnecter(){
         boolean valid = ValiderChamp.validerConnexion(pfPassword, tfEmail, this);
         if(valid){
-            System.out.println("Email: " + tfEmail.getText() + "\nMot de passe: " + new String(pfPassword.getPassword()));
-            User user = validateConnexion(tfEmail.getText(), new String(pfPassword.getPassword()));
-            if(user != null) {
-                user.afficherDetails();
-                JOptionPane.showMessageDialog(this, "User " + tfEmail.getText() + " connecte avec succes.");
-                effacer();
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Les informations entrees sont incorrectes.");
+            String motDePasse = new String(pfPassword.getPassword());
+            System.out.println("Email: " + tfEmail.getText() + "\nMot de passe: " + motDePasse);
+
+            if (cbChoisirRole.getSelectedItem().equals("Client")) {
+                ClientDAOImpl clientDAO = new ClientDAOImpl();
+                Client client = clientDAO.getClientByEmail(tfEmail.getText());
+                if(client!=null) {
+                    boolean isValid = validateUserConnexion(client, motDePasse);
+                    if(isValid){
+                        client.afficherDetails();
+                        JOptionPane.showMessageDialog(this, "User " + client.getName() + " connecte avec succes.");
+                        effacer();
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Le mot de passe est incorrecte");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Aucun utilisateur trouve");
+                }
+            } else if (cbChoisirRole.getSelectedItem().equals("Investisseur")) {
+                InvestorDAOImpl investorDAO = new InvestorDAOImpl();
+                Investor investor = investorDAO.getInvestorByEmail(tfEmail.getText());
+                if(investor!=null) {
+                    boolean isValid = validateUserConnexion(investor, motDePasse);
+                    if(isValid){
+                        investor.afficherDetails();
+                        JOptionPane.showMessageDialog(this, "User " + investor.getName() + " connecte avec succes.");
+                        effacer();
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Le mot de passe est incorrecte");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Aucun utilisateur trouve");
+                }
             }
         }
     }
@@ -96,6 +144,19 @@ public class LoginView extends JDialog {
     private void effacer(){
         tfEmail.setText("");
         pfPassword.setText("");
+    }
+
+    private boolean validateUserConnexion(User user, String passsword) {
+        try {
+             byte[] sel = HachageMotDePasse.stringToByte(user.getSel());
+             String motDePasseHache = HachageMotDePasse.hachMotPasse(passsword, sel);
+             if(user.getPassword().equals(motDePasseHache)){
+                 return true;
+             }
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 
     private User validateConnexion(String email, String password) {

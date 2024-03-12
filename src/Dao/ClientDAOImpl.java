@@ -61,6 +61,7 @@ public class ClientDAOImpl implements ClientDAO {
                 client.setBirthday(rs.getDate("birthday").toLocalDate());
                 client.setMaritalStatus(rs.getString("maritalStatus"));
                 client.setResidencyPeriod(rs.getInt("residencyPeriod"));
+                client.afficherDetails();
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -20,12 +20,26 @@ public class HachageMotDePasse {
         messageDigest.update(sel);
         byte[] motDePasseHache = messageDigest.digest(password.getBytes());
 
+        return byteToString(motDePasseHache);
+    }
+
+    public static String byteToString (byte[] cByte) {
         // Conversion de byte a string
-        StringBuilder motDePasse = new StringBuilder();
-        for (byte b : motDePasseHache) {
-            motDePasse.append(String.format("%02x", b));
+        StringBuilder sb = new StringBuilder();
+        for (byte b : cByte) {
+            sb.append(String.format("%02x", b));
         }
-        return motDePasse.toString();
+        return sb.toString();
+    }
+
+    public static byte[] stringToByte(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                    + Character.digit(s.charAt(i+1), 16));
+        }
+        return data;
     }
 
 }
