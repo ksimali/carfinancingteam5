@@ -129,6 +129,9 @@ public class LoginView extends JDialog {
                     if(isValid){
                         investor.afficherDetails();
                         JOptionPane.showMessageDialog(this, "User " + investor.getName() + " connecte avec succes.");
+                        // afficher la fenetre des investissement
+                        InvestmentView invstment = new InvestmentView();
+                        invstment.setVisible(true);
                         effacer();
                         this.dispose();
                     } else {
