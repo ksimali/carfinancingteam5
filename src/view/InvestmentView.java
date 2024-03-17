@@ -1,7 +1,10 @@
 package view;
 
+import model.Transaction;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Date;
 import java.util.List;
 
 public class InvestmentView extends JDialog {
@@ -11,7 +14,16 @@ public class InvestmentView extends JDialog {
     private JLabel balanceLabel;
     private final JTextArea transactionsArea;
     private final JButton investButton;
-    private final JButton cashoutButton;
+    private final JButton withdrawButton;
+
+    // getters
+    public JButton getInvestButton(){
+        return investButton;
+    }
+
+    public JButton getWithdrawButton(){
+        return withdrawButton;
+    }
 
     // constructor
     public InvestmentView(){
@@ -20,7 +32,7 @@ public class InvestmentView extends JDialog {
         gbc = new GridBagConstraints();
         transactionsArea = new JTextArea(10,40);
         investButton = new JButton("Investir");
-        cashoutButton = new JButton("Retirer");
+        withdrawButton = new JButton("Retirer");
 
         // Affichage de la fenêtre principale
         setTitle("Gestion des Investissements");
@@ -56,14 +68,14 @@ public class InvestmentView extends JDialog {
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         transactionsArea.setEditable(false);
-        investmentPanel.add(transactionsArea, gbc);
+        investmentPanel.add(new JScrollPane(transactionsArea), gbc);
 
         // bouton "Retirer"
         gbc.gridx = 1;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        investmentPanel.add(cashoutButton, gbc);
+        investmentPanel.add(withdrawButton, gbc);
 
         // Bouton "Investir"
         gbc.gridx = 2;
@@ -73,17 +85,14 @@ public class InvestmentView extends JDialog {
         investmentPanel.add(investButton, gbc);
     }
 
-    // method pour afficher le solde des sommes investis
-    public void setBalance(Double balance){
+    // method pour mettre a jour le solde des sommes investis
+    public void updateBalance(Double balance){
         balanceLabel.setText("Solde actuel: " + balance + "$");
     }
 
-    // method pour afficher les transactions
-    public void setTransactions(List<String> transactions){
-        transactionsArea.setText(""); // clear les transaction préexistantes
-        // afficher la liste des transactions
-        for(String transaction : transactions){
-            transactionsArea.append(transaction + "\n");
-        }
+    // ajout des transactions dans la zone textArea
+    public void addTransaction(Date date, double montant, Transaction.TransactionType type){
+        String transactionType = type == Transaction.TransactionType.Investissement ? "Investi" : "Retiré";
+        transactionsArea.append(date.toString() + " : " + transactionType + " $" + montant + "\n");
     }
 }

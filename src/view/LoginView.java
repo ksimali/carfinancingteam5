@@ -5,7 +5,9 @@ import Dao.DonneesArrayList;
 import Dao.InvestorDAOImpl;
 import Outils.HachageMotDePasse;
 import Outils.ValiderChamp;
+import controller.InvestmentController;
 import model.Client;
+import model.Investment;
 import model.Investor;
 import model.User;
 
@@ -129,11 +131,13 @@ public class LoginView extends JDialog {
                     if(isValid){
                         investor.afficherDetails();
                         JOptionPane.showMessageDialog(this, "User " + investor.getName() + " connecte avec succes.");
-                        // afficher la fenetre des investissement
-                        InvestmentView invstment = new InvestmentView();
-                        invstment.setVisible(true);
                         effacer();
                         this.dispose();
+                        // afficher la fenetre des investissement
+                        Investment model = new Investment();
+                        InvestmentView view = new InvestmentView();
+                        new InvestmentController(model,view);
+                        view.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Le mot de passe est incorrecte");
                     }
