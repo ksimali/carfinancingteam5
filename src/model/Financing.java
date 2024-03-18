@@ -64,4 +64,11 @@ public class Financing {
         this.duree = duree;
         this.kilometre = kilometre;
     }
+
+    // Methods
+    public void afficherDetails(){
+        System.out.println("Name: "+ name+ "\nEmail: " + email+"\nPhone:"
+                + phone+"\nVIN: "+ vin + "\nMontant: "+ montant
+                +"\nDurée: " + duree +"\nKm:" + kilometre);
+    }
 }
