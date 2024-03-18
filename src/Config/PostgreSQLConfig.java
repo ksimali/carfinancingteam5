@@ -59,8 +59,8 @@ public class PostgreSQLConfig {
                 "vin VARCHAR(64) NOT NULL," +
                 "montant INT NOT NULL," +
                 "duree INT NOT NULL," +
-                "PRIMARY KEY(financing_id)" +
-                "CONSTRAINT fk_client FOREIGN KEY(client_id) REFERENCES client(client_id)" +
+                "PRIMARY KEY(financing_id)," +
+                "CONSTRAINT fk_financing_client FOREIGN KEY(client_id) REFERENCES client(client_id)" +
                 ");";
 
         //Requête SQL pour créer la table contenant les transactions
@@ -70,8 +70,8 @@ public class PostgreSQLConfig {
                 "type CHAR(8) NOT NULL," +
                 "montant INT NOT NULL," +
                 "date DATE NOT NULL," +
-                "PRIMARY KEY(transaction_id)" +
-                "CONSTRAINT fk_investor FOREIGN KEY(investor_id) REFERENCES investor(investor_id)" +
+                "PRIMARY KEY(transaction_id)," +
+                "CONSTRAINT fk_transaction_investor FOREIGN KEY(investor_id) REFERENCES investor(investor_id)" +
 
                 ");";
 
@@ -83,8 +83,8 @@ public class PostgreSQLConfig {
                 "balance INT," +
                 "transactions INT," +
                 "PRIMARY KEY(investment_id)," +
-                "CONSTRAINT fk_investor FOREIGN KEY(investor_id) REFERENCES investor(investor_id)," +
-                "CONSTRAINT fk_transaction FOREIGN KEY(transaction_id) REFERENCES transaction(transaction_id)" +
+                "CONSTRAINT fk_investment_investor FOREIGN KEY(investor_id) REFERENCES investor(investor_id)," +
+                "CONSTRAINT fk_investment_transaction FOREIGN KEY(transaction_id) REFERENCES transaction(transaction_id)" +
                 ");";
         try {
             Connection conn = getConnection();
@@ -93,6 +93,9 @@ public class PostgreSQLConfig {
             // Création des tables
             stmt.execute(sqlClient);
             stmt.execute(sqlInvestor);
+            stmt.execute(sqlFinancing);
+            stmt.execute(sqlTransaction);
+            stmt.execute(sqlInvestment);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

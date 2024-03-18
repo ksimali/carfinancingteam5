@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import Dao.FinancingDAOImpl;
 import Outils.FinancingFormValidation;
+import model.Financing;
 
 public class FinancingView extends JDialog {
     private final JPanel financingPanel;
@@ -197,8 +200,14 @@ public class FinancingView extends JDialog {
         // appel du FinancingFormValidation
         boolean valid = FinancingFormValidation.validateFields(tfName, tfEmail, this, tfPhone, tfVin, tfMontant, tfDuree, tfKm);
         if(valid){
-            JOptionPane.showMessageDialog(this, "Votre demande de financement  pour le véhicule " + tfVin.getText() + " a bien été soumis avec succes.");
+            Financing financing = new Financing(tfName.getText(), tfEmail.getText(), tfPhone.getText(), tfVin.getText(), Integer.parseInt(tfMontant.getText()),Integer.parseInt(tfDuree.getText()), Integer.parseInt(tfKm.getText()));
+
+            financing.afficherDetails();
+            FinancingDAOImpl financingDAOImpl = new FinancingDAOImpl();
+            financingDAOImpl.addFinancing(financing);
+
+            JOptionPane.showMessageDialog(this, "Votre demande de financement  pour le véhicule n°" + tfVin.getText() + " a bien été soumis avec succes.");
         }
+
     }
 }
-
