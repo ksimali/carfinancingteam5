@@ -135,7 +135,7 @@ public class FinancingView extends JDialog {
 
         // TextField pour "kilométrage"
         gbc.gridx = 1;
-        gbc.gridwidth = 1;
+        gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         tfKm = new JTextField(15);
         financingPanel.add(tfKm, gbc);

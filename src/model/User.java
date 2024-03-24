@@ -2,6 +2,7 @@ package model;
 
 public class User {
     // User attributes
+    private int userId;
     private String name;
     private String email;
     private String password;
@@ -9,6 +10,15 @@ public class User {
     private String sel;
 
     // Getters
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     public String getName() {
         return name;
     }

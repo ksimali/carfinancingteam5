@@ -114,7 +114,7 @@ public class LoginView extends JDialog {
                     boolean isValid = validateUserConnexion(client, motDePasse);
                     if(isValid){
                         client.afficherDetails();
-                        JOptionPane.showMessageDialog(this, "User " + client.getName() + " connecte avec succes.");
+                        JOptionPane.showMessageDialog(this, "Utilisateur " + client.getName() + " connecte avec succes.");
                         effacer();
                         this.dispose();
                     } else {
@@ -130,13 +130,13 @@ public class LoginView extends JDialog {
                     boolean isValid = validateUserConnexion(investor, motDePasse);
                     if(isValid){
                         investor.afficherDetails();
-                        JOptionPane.showMessageDialog(this, "User " + investor.getName() + " connecte avec succes.");
+                        JOptionPane.showMessageDialog(this, "Utilisateur " + investor.getName() + " connecte avec succes.");
                         effacer();
                         this.dispose();
                         // afficher la fenetre des investissement
                         Investment model = new Investment();
                         InvestmentView view = new InvestmentView();
-                        new InvestmentController(model,view);
+                        new InvestmentController(model,view, investor);
                         view.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Le mot de passe est incorrecte");
