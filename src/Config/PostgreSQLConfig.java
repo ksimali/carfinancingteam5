@@ -24,7 +24,7 @@ public class PostgreSQLConfig {
     public static void initializeDatabase() {
         // Requête SQL pour créer la table client
         String sqlClient = "CREATE TABLE IF NOT EXISTS client (" +
-                "client_id INT GENERATED ALWAYS AS IDENTITY," +
+                "client_id SERIAL," +
                 "name VARCHAR(256)," +
                 "email VARCHAR(256)," +
                 "password VARCHAR(256)," +
@@ -40,7 +40,7 @@ public class PostgreSQLConfig {
                 ");";
         // Requête SQL pour créer la table investors
         String sqlInvestor = "CREATE TABLE IF NOT EXISTS investor (" +
-                "investor_id INT GENERATED ALWAYS AS IDENTITY," +
+                "investor_id SERIAL," +
                 "name VARCHAR(256)," +
                 "email VARCHAR(256)," +
                 "password VARCHAR(256)," +
@@ -54,7 +54,7 @@ public class PostgreSQLConfig {
                 ");";
         // Requête SQL pour créer la table contenant les financements
         String sqlFinancing = "CREATE TABLE IF NOT EXISTS financing (" +
-                "financing_id INT GENERATED ALWAYS AS IDENTITY," +
+                "financing_id SERIAL," +
                 "client_id INT," +
                 "vin VARCHAR(64) NOT NULL," +
                 "montant INT NOT NULL," +
@@ -65,26 +65,23 @@ public class PostgreSQLConfig {
 
         //Requête SQL pour créer la table contenant les transactions
         String sqlTransaction = "CREATE TABLE IF NOT EXISTS transaction (" +
-                "transaction_id INT GENERATED ALWAYS AS IDENTITY," +
+                "transaction_id SERIAL," +
                 "investor_id INT," +
-                "type CHAR(8) NOT NULL," +
-                "montant INT NOT NULL," +
+                "type VARCHAR(25) NOT NULL," +
+                "montant DECIMAL NOT NULL," +
                 "date DATE NOT NULL," +
                 "PRIMARY KEY(transaction_id)," +
                 "CONSTRAINT fk_transaction_investor FOREIGN KEY(investor_id) REFERENCES investor(investor_id)" +
-
                 ");";
 
         // Reqête SQL pour créer la table contenant les investissements
         String sqlInvestment = "CREATE TABLE IF NOT EXISTS investment (" +
-                "investment_id INT GENERATED ALWAYS AS IDENTITY," +
+                "investment_id SERIAL," +
                 "investor_id INT," +
-                "transaction_id INT," +
                 "balance INT," +
-                "transactions INT," +
+                "date DATE," +
                 "PRIMARY KEY(investment_id)," +
-                "CONSTRAINT fk_investment_investor FOREIGN KEY(investor_id) REFERENCES investor(investor_id)," +
-                "CONSTRAINT fk_investment_transaction FOREIGN KEY(transaction_id) REFERENCES transaction(transaction_id)" +
+                "CONSTRAINT fk_investment_investor FOREIGN KEY(investor_id) REFERENCES investor(investor_id)" +
                 ");";
         try {
             Connection conn = getConnection();

@@ -1,5 +1,6 @@
 package view;
 
+import model.Investor;
 import model.Transaction;
 
 import javax.swing.*;
@@ -59,7 +60,7 @@ public class InvestmentView extends JDialog {
         gbc.gridy = 2;
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.NONE;
-        JLabel lblTransaction = new JLabel("liste des transactions");
+        JLabel lblTransaction = new JLabel("Liste des transactions :");
         investmentPanel.add(lblTransaction, gbc);
 
         // zone d'affichage des transactions
@@ -88,6 +89,23 @@ public class InvestmentView extends JDialog {
     // method pour mettre a jour le solde des sommes investis
     public void updateBalance(Double balance){
         balanceLabel.setText("Solde actuel: " + balance + "$");
+    }
+
+    public void updateView(Investor investor) {
+        double solde = 0;
+        if(investor != null){
+            transactionsArea.setText("");
+            for (Transaction t: investor.getTransactions()
+                 ) {
+                if(t.getTypeTransaction().equals(Transaction.TransactionType.Investissement.name())){
+                    solde += t.getMontant();
+                } else {
+                    solde -= t.getMontant();
+                }
+                transactionsArea.append(t.getDate().toString() + " : " + t.getTypeTransaction() + " $" + t.getMontant() + "\n");
+            }
+        }
+        balanceLabel.setText("Solde actuel: " + solde + "$");
     }
 
     // ajout des transactions dans la zone textArea

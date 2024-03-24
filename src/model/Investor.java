@@ -1,11 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Investor extends User {
     // Attributes
     private String bankName;
     private String bankAccount;
     private String riskLevel;
     private String financialEducation;
+    private ArrayList<Transaction> transactions;
 
     // Getters
     public String getBankName(){
@@ -38,6 +41,7 @@ public class Investor extends User {
 
     public Investor() {
         super();
+        transactions = new ArrayList<>();
     }
 
     public Investor(String name, String email, String password, String phone, String bankName, String bankAccount, String riskLevel, String financialEducation){
@@ -46,6 +50,14 @@ public class Investor extends User {
         this.bankAccount = bankAccount;
         this.riskLevel = riskLevel;
         this.financialEducation = financialEducation;
+    }
+
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(ArrayList<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     // Methods

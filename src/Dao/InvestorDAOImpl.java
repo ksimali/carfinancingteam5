@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class InvestorDAOImpl implements InvestorDAO{
     @Override
     public Investor addInvestor(Investor investor) {
-        String sql = "INSERT INTO investor VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO investor (name, email, password, phone, sel, bankName, bankAccount, riskLevel, financialEducation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             Connection conn =
@@ -48,6 +48,7 @@ public class InvestorDAOImpl implements InvestorDAO{
 
             if (rs.next()) {
                 investor = new Investor();
+                investor.setUserId(rs.getInt("investor_id"));
                 investor.setName(rs.getString("name"));
                 investor.setEmail(rs.getString("email"));
                 investor.setPassword(rs.getString("password"));
