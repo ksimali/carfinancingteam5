@@ -56,9 +56,14 @@ public class PostgreSQLConfig {
         String sqlFinancing = "CREATE TABLE IF NOT EXISTS financing (" +
                 "financing_id SERIAL," +
                 "client_id INT," +
+                "name VARCHAR(256)," +
+                "email VARCHAR(256)," +
+                "phone VARCHAR(256)," +
                 "vin VARCHAR(64) NOT NULL," +
                 "montant INT NOT NULL," +
                 "duree INT NOT NULL," +
+                "kilometre INT NOT NULL," +
+                "created_at DATE NOT NULL," +
                 "PRIMARY KEY(financing_id)," +
                 "CONSTRAINT fk_financing_client FOREIGN KEY(client_id) REFERENCES client(client_id)" +
                 ");";

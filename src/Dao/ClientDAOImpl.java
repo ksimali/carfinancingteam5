@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class ClientDAOImpl implements ClientDAO {
     @Override
     public Client addClient(Client client) {
-        String sql = "INSERT INTO client VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO client (name, email, password, phone, sel, occupation, income, creditScore, birthday, maritalStatus, residencyPeriod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try {
             Connection conn =
