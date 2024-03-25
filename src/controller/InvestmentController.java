@@ -64,7 +64,7 @@ public class InvestmentController {
                 // logique pour l'action le retrait
                 System.out.println("bouton Retiré cliqué");
                 try{
-                    double montant = Double.parseDouble(JOptionPane.showInputDialog("Montant à retirer : "));
+                    double montant = Double.parseDouble(JOptionPane.showInputDialog(view,"Montant à retirer : "));
                     if(montant > 0 && model.getBalance() >= montant) {
                         Transaction transaction = new Transaction();
                         transaction.setTypeTransaction(Transaction.TransactionType.Retrait.name());
