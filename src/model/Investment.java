@@ -29,14 +29,14 @@ public class Investment {
 //    }
 
     // method investir: invest money to the balance
-    public void investir(double montant){
-        balance += montant;
-        //addTransaction("Investi : +" + montant + "$ le " + java.time.LocalDate.now());
-    }
+//    public void investir(double montant){
+//        balance += montant;
+//        //addTransaction("Investi : +" + montant + "$ le " + java.time.LocalDate.now());
+//    }
 
     // method retirer : cashout money from the balance
-    public void retirer(double montant){
-        balance -= montant;
-        //addTransaction("Retiré : -" + montant + "$ le " + java.time.LocalDate.now());
-    }
+//    public void retirer(double montant){
+//        balance -= montant;
+//        //addTransaction("Retiré : -" + montant + "$ le " + java.time.LocalDate.now());
+//    }
 }

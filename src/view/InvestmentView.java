@@ -1,5 +1,6 @@
 package view;
 
+import model.Investment;
 import model.Investor;
 import model.Transaction;
 
@@ -91,7 +92,7 @@ public class InvestmentView extends JDialog {
         balanceLabel.setText("Solde actuel: " + balance + "$");
     }
 
-    public void updateView(Investor investor) {
+    public void updateView(Investor investor, Investment model) {
         double solde = 0;
         if(investor != null){
             transactionsArea.setText("");
@@ -105,6 +106,7 @@ public class InvestmentView extends JDialog {
                 transactionsArea.append(t.getDate().toString() + " : " + t.getTypeTransaction() + " $" + t.getMontant() + "\n");
             }
         }
+        model.setBalance(solde);
         balanceLabel.setText("Solde actuel: " + solde + "$");
     }
 

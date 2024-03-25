@@ -26,7 +26,7 @@ public class InvestmentController {
         // Recuperation des transactions
         ArrayList<Transaction> transactions = transactionDAOImpl.getAllTransactionsByInvestorId(investor.getUserId());
         investor.setTransactions(transactions);
-        view.updateView(investor);
+        view.updateView(investor, model);
         //Add addActionListener to Buttons
         view.getInvestButton().addActionListener(new ActionListener() {
             @Override
@@ -46,11 +46,11 @@ public class InvestmentController {
 
                         investor.getTransactions().add(transaction);
 
-                        model.investir(montant);
-                        view.updateView(investor);
+                        //model.investir(montant);
+                        view.updateView(investor, model);
                         // view.addTransaction(new Date(), montant, Transaction.TransactionType.Investissement);
                     } else {
-                        JOptionPane.showInputDialog(view,"Le montant entre doit etre superieur $100. Reessayer!");
+                        JOptionPane.showMessageDialog(view,"Le montant entre doit etre superieur $100. Reessayer!");
                     }
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(view, "Veuillez saisir un montant valide.", "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
@@ -76,10 +76,10 @@ public class InvestmentController {
 
                         investor.getTransactions().add(transaction);
 
-                        model.retirer(montant);
-                        view.updateView(investor);
+                        //model.retirer(montant);
+                        view.updateView(investor, model);
                     } else {
-                        JOptionPane.showInputDialog(view,"Le montant entré ne doit pas être négatif ou supérieur au solde actuel. Réessayer!");
+                        JOptionPane.showMessageDialog(view,"Le montant entré ne doit pas être négatif ou supérieur au solde actuel. Réessayer!");
                     }
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(view, "Veuillez saisir un montant valide.", "Erreur de saisie", JOptionPane.ERROR_MESSAGE);
